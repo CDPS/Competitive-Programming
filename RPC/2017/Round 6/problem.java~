@@ -1,0 +1,41 @@
+import java.math.BigInteger;
+import java.util.Scanner;
+
+public class problem {
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		int t = s.nextInt();
+		String n ;
+		s.nextLine();
+		BigInteger bn;
+		while(t>=0){
+			n = s.nextLine();
+			bn = new BigInteger(n);
+			if(n.equals("0")){
+				System.out.println(1);
+			}
+			else if(n.equals("1") ){
+				System.out.println(66);
+			}else{
+				bn = bn.add(new BigInteger("3"));
+				
+				String res = bn.mod(new BigInteger("5")).toString();
+				
+				if(res.equals("0")){
+					System.out.println(56);
+				}else if(res.equals("1")){
+					System.out.println(96);
+				}else if(res.equals("2")){
+					System.out.println(36);
+				}if(res.equals("3")){
+					System.out.println(76);
+				}else if(res.equals("4")){
+					System.out.println(16);
+				}
+			}
+			t--;
+		}
+		
+		s.close();
+	}
+}
