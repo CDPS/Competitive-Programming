@@ -14,6 +14,20 @@ void allStringToLower(string a){
     transform(a.begin(), a.end(), a.begin(), ::tolower);
 }
 
+int a[3]; //contains sides length of a triangle
+          //the sides MUST be positives
+bool isValidTriangule(){
+    sort(a,a+3); //sort
+    if( (a[0]+a[1] > a[2]) && (a[0]+a[2]>a[1]) && (a[1]+a[2]>a[0])){
+        return true;
+    return false;
+}
+
+int gcd(int a, int b) {
+    if(b==0) return a;
+    else return gcd(b,a%b);
+}
+
 int main(){
 
 }
