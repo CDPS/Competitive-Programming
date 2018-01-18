@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int a[200000];
+int a[200000],b[200000];
 
 class Fenwick{
 
@@ -39,22 +39,30 @@ class Fenwick{
     }
 };
 
-
 int main(){
 
-    int t,caseno=1;
+    int n,q,l,h;
 
-    scanf("%d",&t);
+    scanf("%d %d",&n,&q);
 
-    while(t--){
+    for(int i=0;i<n;i++) scanf("%d",a+i);
 
-        int n;
-        cin >> n;
-
-        for(int i=0;i<n;i++)
-            cin >> a[i];
-
-        Fenwick f(n);
+    Fenwick f(n);
+    while(q--){
+        scanf("%d %d",&l,&h);
+        f.update(l,1); f.update(h+1,-1);
     }
+
+
+    for(int i=0;i<n;i++)
+        b[i]= f.query(i+1);
+
+    sort(a,a+n); sort(b,b+n);
+
+    long long ans = 0;
+    for(int i=0;i<n;i++)
+        ans  = ans + (1ll*b[i]*a[i]);
+
+    printf("%I64d\n",ans);
     return 0;
 }
