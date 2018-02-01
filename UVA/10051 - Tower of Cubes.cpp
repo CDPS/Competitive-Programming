@@ -29,6 +29,7 @@ void printPath(int x,int k){
     }
     cout << x+1 << " " <<names[k] << "\n";
 }
+
 void dp(){
 
    for(int i=0;i<n;i++){
