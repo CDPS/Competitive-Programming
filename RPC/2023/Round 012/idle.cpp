@@ -13,29 +13,27 @@ int main(){
     for(int i=0;i<n;i++)
         cin >> a[i];
 
-    int i=0;
-    for(;i<min(n,k);i++)
+    for(int i=0;i<min(k,n);i++)
         pq.push(a[i]);
 
-    int maxi = 0;
+    int maxi = -1;
+    int prev = 0;
+    for(int i=k;i<n;i++){
+        int x = pq.top();
+        pq.pop();
+        maxi = max(maxi, x-prev);
+        prev = x;
+        pq.push(a[i]);
+    }
+
     while(!pq.empty()){
         int x = pq.top();
         pq.pop();
-        maxi = max(x, maxi);
-
-        priority_queue<int, vector<int>, greater<int> > aux;
-        while(!pq.empty()){
-            int y = pq.top();
-            pq.pop();
-            y-=x;
-            if(y > 0)
-                aux.push(y);
-        }
-        while(aux.size()< k && i < n)
-            aux.push(a[i++]);
-
-        pq = aux;
+        maxi = max(maxi, x-prev);
+        prev = x;
     }
+
     cout << maxi << "\n";
     return 0;
 }
+
