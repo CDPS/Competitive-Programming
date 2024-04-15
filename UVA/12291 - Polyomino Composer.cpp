@@ -34,10 +34,9 @@ vector<node> getPath(int x,int y){
 }
 
 bool fit(int x, int y, vector<node> &path){
-    for(int i=0;i<path.size();i++){
+    for(int i=0;i<path.size();i++)
         if(!isValid(x + path[i].x, y + path[i].y))
             return false;
-    }
     return true;
 }
 
@@ -46,15 +45,17 @@ void visitPath(int x, int y, vector<node> &path){
         v[x + path[i].x][y + path[i].y] = true;
 }
 
-bool solve(vector<node> &path){
+void searchParent(vector<node> &path){
     for(int i=0;i<n;i++)
         for(int j=0;j<a[i].size();j++)
-            if(a[i][j]=='*' && !v[i][j])
-               if(fit(i,j,path))
-                    visitPath(i, j,path);
-                else
-                    return false;
+            if(a[i][j]=='*' && !v[i][j] && fit(i,j,path)){
+                visitPath(i, j,path); return;
+            }
+}
 
+bool solve(vector<node> &path){
+    searchParent(path);
+    searchParent(path);
     return check();
 }
 
