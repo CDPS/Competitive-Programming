@@ -2,22 +2,23 @@
 
 using namespace std;
 
-typedef complex<double> pt;
-
 int n;
-pt a[256];
+complex<double> a[256];
 
-double memo[256][256][256];
+double memo[256][256];
 double oo = 10000000;
 
-double dp(int cur, int prev, int k){
+double dp(int idx, int w){
 
-    if(k>= n-cur)  return oo;
-    if(cur == n-1) return abs(a[cur]-a[prev]);
-    if(memo[cur][prev][k]!= -1.0) return memo[cur][prev][k];
+    if(w > n-idx) return oo;
+    if(idx== n-1) return 0;
+    if(memo[idx][w]!= -1.0) return memo[idx][w];
 
-    return memo[cur][prev][k] = min( abs(a[cur]-a[prev]) + dp(cur+1, cur,k),
-                                     (k>0)? dp(cur+1,prev, k-1) : oo );
+    double ans = oo;
+    for(int i = idx + 1; i<n; i++)
+        ans = min( abs(a[idx]- a[i]) + dp( i, w-1), ans);
+
+    return memo[idx][w] = ans;
 }
 
 int main(){
@@ -33,15 +34,13 @@ int main(){
 
         int x, y;
         for(int i=0;i<n;i++)
-            cin >> x >> y, a[i] = pt(x,y);
+            cin >> x >> y, a[i] = complex<double>(x,y);
 
         for(int i=0;i<256;i++)
             for(int j=0;j<256;j++)
-                for(int k=0;k<256;k++)
-                    memo[i][j][k] = -1.0;
+                memo[i][j] = -1.0;
 
-        cout  << dp(1, 0 , k) << "\n";
+        cout  << dp(0, n - k) << "\n";
     }
-
     return 0;
 }
