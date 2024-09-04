@@ -40,8 +40,7 @@ struct problem{
 
 int main(){
 
-    //freopen("output.txt","w",stdout);
-    //cin.sync_with_stdio(false); cin.tie(NULL);
+    cin.sync_with_stdio(false); cin.tie(NULL);
 
     int test;
 	cin >> test;
@@ -75,8 +74,6 @@ int main(){
             p = problems[i].p;
             acc = problems[i].acc;
             intimes = problems[i].time;
-
-            cout << t << " "
             score[t][p-'A'] = (acc == 'Y' && !solved[t][p-'A'])? intimes : score[t][p-'A'];
             tries[t][p-'A'] = (acc == 'N' && !solved[t][p-'A'])? tries[t][p-'A'] + 1 : tries[t][p-'A'];
             solved[t][p-'A']|= acc == 'Y';
@@ -89,8 +86,7 @@ int main(){
             int totalTime =0;
             int totalSolved = 0;
             bool s = false;
-
-            for(int j=0;j<27;j++){
+            for(int j=0;j<26;j++){
                 if(solved[i][j]){
                     totalSolved++;
                     s= true;
@@ -99,8 +95,6 @@ int main(){
             }
 
             if(s) maxsolved++;
-
-            cout << i << " " << totalSolved << " " << totalTime << "\n";
             a.push_back(node(i,totalSolved, totalTime));
         }
         sort(a.begin(), a.end());
