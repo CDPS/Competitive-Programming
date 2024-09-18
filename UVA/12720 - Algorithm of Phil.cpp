@@ -2,25 +2,27 @@
 
 using namespace std;
 
-typedef unsigned long long ull;
+int m = 1000000007;
 
-ull m = 1000000007;
+int solve(string s){
 
-ull eb(ull a, ull b){
-    ull res=1;
-    ull x= a%m;
-    while(b>0){
-        if(b%2)
-            res= (res*x)%m;
-        x = (x*x)%m;
-        b/=2;
+    int  n = s.size();
+    int  p = 1;
+    int ans = 0;
+    int l, r, b;
+    r = n / 2, l = r - 1;
+    for(int i = 0, j = n&1; i < n; i++, j = !j) {
+        if(j) {
+            if(n - r > l) b = (s[r] - '0'), r++;
+            else b = (s[l] - '0'), l--;
+        } else {
+            if(s[l] > s[r]) b = (s[l] - '0'), l--;
+            else b = (s[r] - '0'), r++;
+        }
+        if(b)
+            ans = ( (ans%m) + (p)%m )%m;
+        p = ( (p%m) *2 )%m;
     }
-    return res;
-}
-
-string f(string s){
-
-
     return ans;
 }
 
@@ -29,17 +31,9 @@ int main(){
     int t;
     cin >> t;
     while(t--){
-
         string a;
         cin >> a;
-
-        string b = f(a);
-        ull ans = 0;
-        for(int i= b.size(), j=0; i>=0; i--, j++){
-            if(b[i]=='1')
-                ans += eb(2,j);
-        }
-        cout << ans << "\n";
+        cout << solve(a)<< "\n";
     }
     return 0;
 }
