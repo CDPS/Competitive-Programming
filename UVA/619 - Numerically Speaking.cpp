@@ -2,9 +2,7 @@
 
 using namespace std;
 
-
 void f(string s){
-
     double ans = 0;
     double j = 1;
     for(int i=s.size()-1;i>=0;i--, j*= 26.0 ){
