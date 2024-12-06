@@ -2,49 +2,33 @@
 
 using namespace std;
 
-
-int m = 40000;
+int m = 20000;
 
 int main(){
 
-    int t,n;
-    scanf("%d",&t);
+    int t,n,x;
+    cin >> t;
     string s;
-
-    long x = 0;
-    bool f =1;
 
     while(t--){
         cin >> n >> s;
 
-        if(x==0  && s[0]!='S'){
-            f=0;
-            break;
-        }
+        if(x==0 && s[0]!='S'){ x = m; break;}
 
-        if(x== (m/2) && s[0]!='N'){
-            f=0;
-            break;
+        if(x==m && s[0]!='N'){ x = m; break;}
+
+        if(s[0]=='S'){
+            if(x+n <= m){ x+=n; }
+            else { x = m; break;}
         }
 
         if(s[0]=='N'){
-            x = ((n+x)%m) ;
-        }
-
-        if(s[0] =='S'){
-            x = ((x+n) %m);
+            if(x-n >=0){x-=n;}
+            else { x = m; break;}
         }
     }
 
-    if(f){
-        if(x==0){
-            printf("YES\n");
-        }
-        else{
-            printf("NO\n");
-        }
-    }else{
-        printf("NO\n");
-    }
+    cout << ( (x==0)? "YES" : "NO" ) << "\n";
+
     return 0;
 }
