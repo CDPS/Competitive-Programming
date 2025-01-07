@@ -2,6 +2,8 @@
 
 using namespace std;
 
+typedef long long ll;
+
 int n,k;
 int a[200000];
 
