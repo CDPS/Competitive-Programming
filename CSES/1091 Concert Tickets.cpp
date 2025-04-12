@@ -2,39 +2,25 @@
 
 using namespace std;
 
-int n, m;
-int a[200001];
-bool b[200001];
-
-int lowerBound(int x){
-    int l=0, h = n, m;
-    while(l<h){
-        m = l + ( (h-l+1)/2 );
-        if(a[m] >= x)
-             h = m-1;
-        else l = m;
-    }
-    return l;
-}
-
 int main(){
 
+    cin.sync_with_stdio(false); cin.tie(NULL);
 
+    int n, m, x;
     cin >> n >> m;
 
-    a[0] = -1; b[0] = 1;
-    for(int i=1;i<=n;i++) cin >> a[i];
-    sort(a, a+ n);
+    multiset<int> st;
+    for(int i=0;i<n;i++)
+        cin >> x, st.insert(x);
 
     while(m--){
-
         cin >> x;
-        int lower = lowerBound(x);
-        if(!b[lower]){
-
-        }
+        auto it = st.upper_bound(x);
+        if(it == st.begin())
+            cout << -1 << "\n";
+        else
+            cout << *(--it) << "\n", st.erase(it);
     }
-
 
     return 0;
 }

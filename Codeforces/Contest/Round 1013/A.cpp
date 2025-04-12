@@ -6,7 +6,6 @@ int t;
 int a[6] = {3,1,2,1,0,1};
 int acc[10];
 
-
 bool check(){
     for(int i=0;i<6;i++)
         if(acc[i]<a[i])

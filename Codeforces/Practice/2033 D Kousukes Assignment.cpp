@@ -2,29 +2,35 @@
 
 using namespace std;
 
-int a[100000];
+int dp[100001];
 
 int main(){
 
     cin.sync_with_stdio(false); cin.tie(NULL);
 
     int t, n;
-    cin >> t;
 
+    cin >> t;
     while(t--){
 
         cin >> n;
-        for(int i=0;i<n;i++) cin >> a[i];
 
-        set<int> st; st.insert(0);
+        long long sum = 0, x;
+        map<long long, int> mp; mp[0] = 0;
 
-        int acc = 0, ans = 0;
-        for(int i=0;i<n;i++){
-            acc+=a[i];
-            if(st.count(acc)) ans++;
-            cout << acc << " " << ans << "\n";
-            st.insert(acc);
+        memset(dp, 0, sizeof dp);
+        for(int i=1;i<=n;i++){
+            cin >> x; sum += x;
+            dp[i] = dp[i-1];
+            if(mp.find(sum)!=mp.end())
+                dp[i] = max(dp[i], dp[mp[sum]] + 1 );
+            mp[sum] = i;
         }
+
+        int ans =0;
+        for(int i=1;i<=n;i++)
+            ans = max(ans, dp[i]);
+
         cout << ans << "\n";
     }
     return 0;
