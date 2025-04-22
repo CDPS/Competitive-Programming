@@ -7,9 +7,7 @@ int acc = 0, n, k;
 map<int, int> mp;
 
 void add(int x){ if(++mp[x]==1) acc++; }
-
 void del(int x){ if(--mp[x]==0) acc--; }
-
 bool check(){return acc <= k;}
 
 int main(){
@@ -26,5 +24,6 @@ int main(){
     }
 
     cout << ans  << "\n";
+
     return 0;
 }

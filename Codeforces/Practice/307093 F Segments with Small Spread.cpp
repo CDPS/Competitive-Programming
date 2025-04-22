@@ -2,15 +2,14 @@
 
 using namespace std;
 
-int a[200000];
-int acc = 0, n, k;
-map<int, int> mp;
+long long a[100000];
+int n;
+long long k;
+map<long long, int> mp;
 
-void add(int x){ if(++mp[x]==1) acc++; }
-
-void del(int x){ if(--mp[x]==0) acc--; }
-
-bool check(){return acc <= k;}
+void add(long long x){ mp[x]++; }
+void del(long long x){ if(--mp[x]==0) mp.erase(x); }
+bool check(){ return mp.rbegin()->first - mp.begin()->first <= k;}
 
 int main(){
 
@@ -26,5 +25,6 @@ int main(){
     }
 
     cout << ans  << "\n";
+
     return 0;
 }
