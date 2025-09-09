@@ -12,22 +12,18 @@ int main(){
     cin >> n >> m >> k;
 
     for(int i=0;i<n;i++) cin >> a[i];
-    a[n] = 2*m+1;
 
+    vector<int> v;
+    for(int i=1;i<n;i++)
+        v.push_back(a[i]-a[i-1]+1);
 
-    priority_queue<int> pq;
-    for(int i=1;i<=n;i++)
-        pq.push(a[i]-a[i-1]+1);
+    sort(v.begin(),v.end(),greater<int>());
 
-    int q = (n-k);
-    cout << "<----Eliminados------>" << "\n";
-    while(q--)
-        cout << pq.top<< "\n", pq.pop();
+    int ans = a[n-1] - a[0] + 1;
+    for(int i=0;i<k-1;i++)
+        ans-= v[i]-1;
 
-    int ans = 0;
-    while(!pq.empty())
-        ans+= pq.top(), pq.pop();
+    cout << ans + k- 1 << "\n";
 
-    cout << ans << "\n";
     return 0;
 }
