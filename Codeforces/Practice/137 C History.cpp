@@ -27,31 +27,27 @@ class Fenwick{
 };
 
 int B[200000];
-int ans1[200000];
-int ans2[200000];
 
-int main(){
+int solve(){
 
-    cin.sync_with_stdio(false); cin.tie(NULL);
-
-    int n, l, r;
+int n, l, r;
 
     cin >> n;
 
-    vector<pair< int, pair<int,int> > > v;
+    vector<pair<int,int>> v;
     for(int i=0;i<n;i++){
         cin >> l >> r;
-        v.push_back({l,{r, i}});
+        v.push_back({l,r});
     }
 
     sort(v.begin(), v.end(), [&](auto &A, auto &B){
         if(A.first == B.first )
-            return A.second.first > B.second.first;
+            return A.second > B.second;
         return A.first < B.first;
     });
 
     for(int i=0;i<n;i++)
-        B[i] = v[i].second.first;
+        B[i] = v[i].second;
     sort(B, B + n);
 
     int m = unique(B, B + n) - B;
@@ -61,24 +57,22 @@ int main(){
         mp[B[i]] = i + 1;
 
     Fenwick f(m);
-    for(int i=n-1;i>=0;i--){
-        int idx = mp[ v[i].second.first ];
-        ans1[ v[i].second.second] = f.query(idx);
-        f.update(idx, 1);
-    }
-
-    f = Fenwick(m);
+    int ans = 0;
     for (int i = 0; i < n; i++) {
-        int idx = mp[ v[i].second.first ];
-        ans2[ v[i].second.second] = f.query(m) - f.query(idx-1);
+        int idx = mp[ v[i].second ];
+        ans += (f.query(m) - f.query(idx-1) > 0);
         f.update(idx, 1);
     }
 
-    for(int i=0;i<n;i++)
-        cout << ans1[i] << " \n"[i==n-1];
+    return ans;
+}
 
-    for(int i=0;i<n;i++)
-        cout << ans2[i] << " \n"[i==n-1];
+int main(){
+
+    cin.sync_with_stdio(false); cin.tie(NULL);
+
+    cout << solve() << "\n";
 
     return 0;
 }
+
