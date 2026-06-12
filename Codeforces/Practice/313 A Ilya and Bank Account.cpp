@@ -2,21 +2,15 @@
 
 using namespace std;
 
-int n, x;
+int n;
 
 int solve(){
 
     cin >> n;
 
-    vector<bool> a(5001, false);
-    for(int i=0;i<n;i++)
-        cin >> x, a[x] = true;
+    if(n > 0 ) return n;
 
-    int ans = 0;
-    for(int i=1;i<=n;i++)
-        ans+= (!a[i]);
-
-    return ans;
+    return max(n/10,  (n/100)*10  + (n%10) );
 }
 
 int main(){

@@ -2,23 +2,23 @@
 
 using namespace std;
 
-int n, x;
+int n;
+int a[1000];
+int b[1000];
 
 int solve(){
 
     cin >> n;
 
-    vector<bool> a(5001, false);
-    for(int i=0;i<n;i++)
-        cin >> x, a[x] = true;
+    for(int i=0;i<n;i++) cin >> a[i];
+    for(int i=0;i<n;i++) cin >> b[i];
 
     int ans = 0;
-    for(int i=1;i<=n;i++)
-        ans+= (!a[i]);
+    for(int j=0, ora = 0, orb = 0;j<n;j++)
+        ora|= a[j], orb|= b[j], ans = max(ans, ora + orb);
 
     return ans;
 }
-
 int main(){
 
     cin.sync_with_stdio(false); cin.tie(NULL);
